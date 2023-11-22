@@ -7,7 +7,7 @@ import authRouter from "./routes/auth.route.js";
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO) // for the security of API key or personal data AND connect is use for to connect with database
+  .connect(process.env.MONGO)// for the security of API key or personal data AND connect is use for to connect with database
   .then(() => {
     console.log("connected to mongodb");
   })
@@ -28,13 +28,13 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 
-// apply middleware 
+// apply middleware to handle the error
 app.use((err, req, res, next) => {
-   const statusCode = err.statusCode || 500;
-   const message = err.message || 'internal sever error';
-   return res.status(statusCode).json({
-    success : false,
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "internal sever error";
+  return res.status(statusCode).json({
+    success: false,
     statusCode,
     message,
-   });
-  })
+  });
+});
